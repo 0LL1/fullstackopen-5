@@ -1,34 +1,15 @@
-import React, { useState } from 'react'
-import loginService from '../services/login'
+import React from 'react'
 
-const LoginForm = ({ setUser }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = async event => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
-
-    try {
-      const user = await loginService.login({
-        username,
-        password
-      })
-
-      setUser(user)
-      setUsername('')
-      setPassword('')
-
-      console.log(user)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+const LoginForm = ({
+  handleLogin,
+  username,
+  password,
+  setUsername,
+  setPassword
+}) => {
   return (
     <>
       <h1>log in to application</h1>
-
       <form onSubmit={handleLogin}>
         <label>
           username
