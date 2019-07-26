@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import LoginForm from './components/LoginForm'
 import UserView from './components/UserView'
+import Notification from './components/Notification'
+import Error from './components/Error'
 import loginService from './services/login'
 import blogsService from './services/blogs'
 
@@ -16,6 +18,8 @@ const App = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [message, setMessage] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -46,7 +50,7 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (error) {
-      console.log(error)
+      setError(error.response.data.error)
     }
   }
 
@@ -58,12 +62,17 @@ const App = () => {
   const handleCreate = async (event, newBlog) => {
     event.preventDefault()
 
-    const response = await blogsService.create(newBlog)
-    setBlogs(blogs.concat(response))
+    try {
+      const response = await blogsService.create(newBlog)
+      setBlogs(blogs.concat(response))
 
-    setTitle('')
-    setAuthor('')
-    setUrl('')
+      setTitle('')
+      setAuthor('')
+      setUrl('')
+      setMessage(`${title} added`)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -90,6 +99,8 @@ const App = () => {
           setPassword={setPassword}
         />
       )}
+      <Notification message={message} setMessage={setMessage} />
+      <Error error={error} setError={setError} />
     </>
   )
 }
