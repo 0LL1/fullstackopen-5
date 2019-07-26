@@ -5,7 +5,11 @@ import loginService from './services/login'
 import blogsService from './services/blogs'
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  // better solution than in the example IMO
+  const initialUser = () =>
+    JSON.parse(window.localStorage.getItem('loggedUser')) || null
+
+  const [user, setUser] = useState(initialUser)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [blogs, setBlogs] = useState([])
@@ -27,6 +31,8 @@ const App = () => {
         password
       })
 
+      window.localStorage.setItem('loggedUser', JSON.stringify(user))
+
       setUser(user)
       setUsername('')
       setPassword('')
@@ -35,10 +41,15 @@ const App = () => {
     }
   }
 
+  const logout = () => {
+    window.localStorage.removeItem('loggedUser')
+    setUser(null)
+  }
+
   return (
     <>
       {user ? (
-        <UserView name={user.name} blogs={blogs} />
+        <UserView name={user.name} blogs={blogs} logout={logout} />
       ) : (
         <LoginForm
           handleLogin={handleLogin}

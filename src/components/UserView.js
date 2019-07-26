@@ -1,13 +1,17 @@
 import React from 'react'
 import Blog from './Blog'
 
-const UserView = ({ name, blogs }) => {
+const UserView = ({ name, blogs, logout }) => {
   const blogList = blogs.map(blog => <Blog key={blog.id} blog={blog} />)
 
   return (
     <>
       <h1>blogs</h1>
-      <p>{name} logged in</p>
+      <div>
+        <span>{name} logged in</span>
+        <button onClick={logout}>logout</button>
+      </div>
+      <br />
       {blogList}
     </>
   )
