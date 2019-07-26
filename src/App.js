@@ -13,6 +13,9 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [blogs, setBlogs] = useState([])
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
+  const [url, setUrl] = useState('')
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -21,6 +24,10 @@ const App = () => {
     }
     getBlogs()
   }, [])
+
+  useEffect(() => {
+    user && blogsService.setToken(user.token)
+  }, [user])
 
   const handleLogin = async event => {
     event.preventDefault()
@@ -32,6 +39,8 @@ const App = () => {
       })
 
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
+
+      blogsService.setToken(user.token)
 
       setUser(user)
       setUsername('')
@@ -46,10 +55,32 @@ const App = () => {
     setUser(null)
   }
 
+  const handleCreate = async (event, newBlog) => {
+    event.preventDefault()
+
+    const response = await blogsService.create(newBlog)
+    setBlogs(blogs.concat(response))
+
+    setTitle('')
+    setAuthor('')
+    setUrl('')
+  }
+
   return (
     <>
       {user ? (
-        <UserView name={user.name} blogs={blogs} logout={logout} />
+        <UserView
+          name={user.name}
+          blogs={blogs}
+          logout={logout}
+          handleCreate={handleCreate}
+          title={title}
+          author={author}
+          url={url}
+          setTitle={setTitle}
+          setAuthor={setAuthor}
+          setUrl={setUrl}
+        />
       ) : (
         <LoginForm
           handleLogin={handleLogin}
