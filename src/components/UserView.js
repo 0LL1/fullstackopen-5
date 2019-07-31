@@ -12,9 +12,15 @@ const UserView = ({
   url,
   setTitle,
   setAuthor,
-  setUrl
+  setUrl,
+  blogFormVisible,
+  setBlogFormVisible
 }) => {
   const blogList = blogs.map(blog => <Blog key={blog.id} blog={blog} />)
+
+  const toggleVisibility = () => {
+    setBlogFormVisible(!blogFormVisible)
+  }
 
   return (
     <>
@@ -24,15 +30,24 @@ const UserView = ({
         <button onClick={logout}>logout</button>
       </div>
       <br />
-      <BlogForm
-        handleCreate={handleCreate}
-        title={title}
-        author={author}
-        url={url}
-        setTitle={setTitle}
-        setAuthor={setAuthor}
-        setUrl={setUrl}
-      />
+      {blogFormVisible ? (
+        <div>
+          <BlogForm
+            handleCreate={handleCreate}
+            title={title}
+            author={author}
+            url={url}
+            setTitle={setTitle}
+            setAuthor={setAuthor}
+            setUrl={setUrl}
+          />
+          <button onClick={toggleVisibility}>cancel</button>
+        </div>
+      ) : (
+        <div>
+          <button onClick={toggleVisibility}>new blog</button>
+        </div>
+      )}
       <br />
       {blogList}
     </>

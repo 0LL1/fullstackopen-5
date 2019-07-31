@@ -20,6 +20,7 @@ const App = () => {
   const [url, setUrl] = useState('')
   const [message, setMessage] = useState(null)
   const [error, setError] = useState(null)
+  const [blogFormVisible, setBlogFormVisible] = useState(false)
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -70,6 +71,7 @@ const App = () => {
       setAuthor('')
       setUrl('')
       setMessage(`${title} added`)
+      setBlogFormVisible(false)
     } catch (error) {
       console.log(error)
     }
@@ -89,6 +91,8 @@ const App = () => {
           setTitle={setTitle}
           setAuthor={setAuthor}
           setUrl={setUrl}
+          blogFormVisible={blogFormVisible}
+          setBlogFormVisible={setBlogFormVisible}
         />
       ) : (
         <LoginForm
