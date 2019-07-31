@@ -25,10 +25,13 @@ const App = () => {
   useEffect(() => {
     const getBlogs = async () => {
       const blogs = await blogsService.getAll()
-      setBlogs(blogs)
+
+      const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+
+      setBlogs(sortedBlogs)
     }
     getBlogs()
-  }, [])
+  }, [blogs])
 
   useEffect(() => {
     user && blogsService.setToken(user.token)
