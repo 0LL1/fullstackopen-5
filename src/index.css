@@ -1,7 +1,14 @@
 body {
+  font-family: sans-serif;
   max-width: 30rem;
   margin: 0 auto;
   padding: 0.5rem;
+}
+
+button {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
 
 .success {
@@ -24,4 +31,16 @@ body {
   padding: 0.5rem;
   border-radius: 0.5rem;
   text-align: center;
+}
+
+.blog {
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.title {
+  cursor: pointer;
+  font-weight: bold;
 }
