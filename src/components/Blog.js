@@ -21,6 +21,12 @@ const Blog = ({ blog }) => {
     }
   }
 
+  const remove = async blog => {
+    if (window.confirm(`Remove ${blog.title}?`)) {
+      await blogsService.remove(blog.id)
+    }
+  }
+
   return (
     <div className="blog">
       <p onClick={toggleDetails} className="title">
@@ -33,6 +39,7 @@ const Blog = ({ blog }) => {
             <button onClick={() => like(blog)}>like</button>
           </p>
           <p>Added by {blog.user.name}</p>
+          <button onClick={() => remove(blog)}>remove</button>
         </>
       )}
     </div>
