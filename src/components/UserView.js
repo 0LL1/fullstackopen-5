@@ -14,9 +14,12 @@ const UserView = ({
   setAuthor,
   setUrl,
   blogFormVisible,
-  setBlogFormVisible
+  setBlogFormVisible,
+  user
 }) => {
-  const blogList = blogs.map(blog => <Blog key={blog.id} blog={blog} />)
+  const blogList = blogs.map(blog => (
+    <Blog key={blog.id} blog={blog} user={user} />
+  ))
 
   const toggleVisibility = () => {
     setBlogFormVisible(!blogFormVisible)

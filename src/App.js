@@ -96,6 +96,7 @@ const App = () => {
           setUrl={setUrl}
           blogFormVisible={blogFormVisible}
           setBlogFormVisible={setBlogFormVisible}
+          user={user}
         />
       ) : (
         <LoginForm
