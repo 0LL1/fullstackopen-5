@@ -1,6 +1,7 @@
 import React from 'react'
 import Blog from './Blog'
 import BlogForm from './BlogForm'
+import PropTypes from 'prop-types'
 
 const UserView = ({
   name,
@@ -55,6 +56,22 @@ const UserView = ({
       {blogList}
     </>
   )
+}
+
+UserView.propTypes = {
+  name: PropTypes.string.isRequired,
+  blogs: PropTypes.array.isRequired,
+  logout: PropTypes.func.isRequired,
+  handleCreate: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setAuthor: PropTypes.func.isRequired,
+  setUrl: PropTypes.func.isRequired,
+  blogFormVisible: PropTypes.bool.isRequired,
+  setBlogFormVisible: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 }
 
 export default UserView
