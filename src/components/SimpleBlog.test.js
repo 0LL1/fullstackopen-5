@@ -14,14 +14,11 @@ test('renders title, author, and likes', () => {
 
   const component = render(<SimpleBlog blog={blog} />)
 
-  const titleAndAuthor = component.getByText('Test title Test author')
-  expect(titleAndAuthor).toBeDefined()
-
-  const likes = component.getByText('blog has 4 likes')
-  expect(likes).toBeDefined()
+  component.getByText('Test title Test author')
+  component.getByText('blog has 4 likes')
 })
 
-test('clicking the like button twice calls the event handler twice', async () => {
+test('clicking the like button twice calls the event handler twice', () => {
   const blog = {
     title: 'Test title2',
     author: 'Test author2',

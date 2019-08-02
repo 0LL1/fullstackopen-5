@@ -34,6 +34,8 @@ const Blog = ({ blog, user }) => {
       </p>
       {showDetails && (
         <>
+          <br />
+          <a href={blog.url}>{blog.url}</a>
           <p>
             {likes} likes
             <button onClick={() => like(blog)}>like</button>
