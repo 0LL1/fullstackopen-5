@@ -8,8 +8,11 @@ import blogsService from './services/blogs'
 
 const App = () => {
   // better solution than in the example IMO
-  const initialUser = () =>
-    JSON.parse(window.localStorage.getItem('loggedUser')) || null
+  const initialUser = () => {
+    return window.localStorage.getItem('loggedUser')
+      ? JSON.parse(window.localStorage.getItem('loggedUser'))
+      : null
+  }
 
   const [user, setUser] = useState(initialUser)
   const [username, setUsername] = useState('')
