@@ -41,10 +41,9 @@ const App = () => {
   }, [user])
 
   useEffect(() => {
-    if (blogs.length < 2) {
-      setBlogs(blogs)
+    if (blogs.length > 1) {
+      setBlogs(blogs.sort((a, b) => b.likes - a.likes))
     }
-    setBlogs(blogs.sort((a, b) => b.likes - a.likes))
   }, [blogs])
 
   const handleLogin = async event => {
@@ -61,10 +60,13 @@ const App = () => {
       blogsService.setToken(user.token)
 
       setUser(user)
-      // setUsername('')
-      // setPassword('')
+
+      username.reset()
+      password.reset()
     } catch (error) {
       setError(error.response.data.error)
+      username.reset()
+      password.reset()
     }
   }
 
