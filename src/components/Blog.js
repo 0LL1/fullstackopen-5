@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogsService from '../services/blogs'
 
-const Blog = ({ blog, user, blogs, sortBlogs }) => {
+const Blog = ({ blog, user, blogs, setBlogs }) => {
   const [showDetails, setShowDetails] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
 
@@ -18,9 +18,9 @@ const Blog = ({ blog, user, blogs, sortBlogs }) => {
       setLikes(response.likes)
 
       // trigger re-render of blogs so they are sorted correctly
-      const newBlogs = [...blogs.filter(e => e !== blog), response]
+      const newBlogs = [...blogs.filter(e => e.id !== blog.id), newBlog]
 
-      sortBlogs(newBlogs)
+      setBlogs(newBlogs)
     } catch (error) {
       console.log(error)
     }
@@ -29,6 +29,8 @@ const Blog = ({ blog, user, blogs, sortBlogs }) => {
   const remove = async blog => {
     if (window.confirm(`Remove ${blog.title}?`)) {
       await blogsService.remove(blog.id)
+
+      setBlogs(blogs.filter(e => e.id !== blog.id))
     }
   }
 

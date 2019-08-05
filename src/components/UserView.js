@@ -17,7 +17,7 @@ const UserView = ({
   blogFormVisible,
   setBlogFormVisible,
   user,
-  sortBlogs
+  setBlogs
 }) => {
   const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
 
@@ -27,7 +27,7 @@ const UserView = ({
       blog={blog}
       user={user}
       blogs={blogs}
-      sortBlogs={sortBlogs}
+      setBlogs={setBlogs}
     />
   ))
 
