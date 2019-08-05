@@ -24,8 +24,8 @@ const App = () => {
   const [error, setError] = useState(null)
   const [blogFormVisible, setBlogFormVisible] = useState(false)
 
-  const username = useField('text')
-  const password = useField('password')
+  const { reset: resetUsername, ...username } = useField('text')
+  const { reset: resetPassword, ...password } = useField('password')
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -61,12 +61,13 @@ const App = () => {
 
       setUser(user)
 
-      username.reset()
-      password.reset()
+      resetUsername()
+      resetPassword()
     } catch (error) {
       setError(error.response.data.error)
-      username.reset()
-      password.reset()
+
+      resetUsername()
+      resetPassword()
     }
   }
 
