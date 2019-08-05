@@ -16,10 +16,19 @@ const UserView = ({
   setUrl,
   blogFormVisible,
   setBlogFormVisible,
-  user
+  user,
+  sortBlogs
 }) => {
-  const blogList = blogs.map(blog => (
-    <Blog key={blog.id} blog={blog} user={user} />
+  const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
+
+  const blogList = sortedBlogs.map(blog => (
+    <Blog
+      key={blog.id}
+      blog={blog}
+      user={user}
+      blogs={blogs}
+      sortBlogs={sortBlogs}
+    />
   ))
 
   const toggleVisibility = () => {

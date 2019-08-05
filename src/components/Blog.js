@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import blogsService from '../services/blogs'
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog, user, blogs, sortBlogs }) => {
   const [showDetails, setShowDetails] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
 
@@ -16,6 +16,11 @@ const Blog = ({ blog, user }) => {
       const response = await blogsService.update(blog.id, newBlog)
 
       setLikes(response.likes)
+
+      // trigger re-render of blogs so they are sorted correctly
+      const newBlogs = [...blogs.filter(e => e !== blog), response]
+
+      sortBlogs(newBlogs)
     } catch (error) {
       console.log(error)
     }

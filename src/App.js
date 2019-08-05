@@ -29,16 +29,21 @@ const App = () => {
     const getBlogs = async () => {
       const blogs = await blogsService.getAll()
 
-      const sortedBlogs = blogs.sort((a, b) => b.likes - a.likes)
-
-      setBlogs(sortedBlogs)
+      sortBlogs(blogs)
     }
     getBlogs()
-  }, [blogs])
+  }, [])
 
   useEffect(() => {
     user && blogsService.setToken(user.token)
   }, [user])
+
+  const sortBlogs = blogs => {
+    if (blogs.length > 2) {
+      setBlogs(blogs)
+    }
+    setBlogs(blogs.sort((a, b) => b.likes - a.likes))
+  }
 
   const handleLogin = async event => {
     event.preventDefault()
@@ -100,6 +105,7 @@ const App = () => {
           blogFormVisible={blogFormVisible}
           setBlogFormVisible={setBlogFormVisible}
           user={user}
+          sortBlogs={sortBlogs}
         />
       ) : (
         <LoginForm
