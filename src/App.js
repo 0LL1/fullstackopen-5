@@ -5,6 +5,7 @@ import Notification from './components/Notification'
 import Error from './components/Error'
 import loginService from './services/login'
 import blogsService from './services/blogs'
+import { useField } from './hooks'
 
 const App = () => {
   // better solution than in the example IMO
@@ -15,8 +16,6 @@ const App = () => {
   }
 
   const [user, setUser] = useState(initialUser)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [blogs, setBlogs] = useState([])
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
@@ -24,6 +23,9 @@ const App = () => {
   const [message, setMessage] = useState(null)
   const [error, setError] = useState(null)
   const [blogFormVisible, setBlogFormVisible] = useState(false)
+
+  const username = useField('text')
+  const password = useField('password')
 
   useEffect(() => {
     const getBlogs = async () => {
@@ -50,8 +52,8 @@ const App = () => {
 
     try {
       const user = await loginService.login({
-        username,
-        password
+        username: username.value,
+        password: password.value
       })
 
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
@@ -59,8 +61,8 @@ const App = () => {
       blogsService.setToken(user.token)
 
       setUser(user)
-      setUsername('')
-      setPassword('')
+      // setUsername('')
+      // setPassword('')
     } catch (error) {
       setError(error.response.data.error)
     }
@@ -112,8 +114,6 @@ const App = () => {
           handleLogin={handleLogin}
           username={username}
           password={password}
-          setUsername={setUsername}
-          setPassword={setPassword}
         />
       )}
       <Notification message={message} setMessage={setMessage} />
